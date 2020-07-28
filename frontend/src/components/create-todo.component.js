@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-
+import axios from 'axios';
 export default class CreateTodo extends Component {
   constructor(props) {
     super(props);
@@ -42,6 +42,17 @@ export default class CreateTodo extends Component {
       console.log(`Todo Responsible: ${this.state.todo_responsible}`);
       console.log(`Todo Priority: ${this.state.todo_priority}`);
 
+      const newTodo = {
+        todo_description : this.state.todo_description,
+        todo_responsible : this.state.todo_responsible,
+        todo_priority : this.state.todo_priority,
+        todo_completed : this.state.todo_completed
+      };
+      //using the axios.post method to send an HTTP POST request to the back-end endpoint.
+      //The endpoint is expecting to get the new todo object in JSON format in the request body.
+      //Therefore we need to pass in the newTodo object as a second argument.
+      
+      axios.post('http://localhost:4000/todos/add', newTodo).then(res => console.log(res.data));
       this.setState({
         todo_description: '',
         todo_responsible: '',
@@ -49,7 +60,7 @@ export default class CreateTodo extends Component {
         todo_completed: false
       })
     }
-  
+
   render() {
     return (
       <div style={{marginTop: 10}}>
