@@ -17,6 +17,8 @@ export default class TodosList extends Component {
     super(props);
     this.state = {todos: []};
   }
+  //Adding Lifecycle Method
+  //componentDidMount() method runs after the component output has been rendered to the DOM.
   componentDidMount() {
     axios.get('http://localhost:4000/todos/').then (response => {
       this.setState({ todos: response.data });

@@ -1,14 +1,19 @@
 import React, {Component} from 'react';
 import axios from 'axios';
 export default class CreateTodo extends Component {
+  //Props are are arguments passed into React components via HTML attributes.
   constructor(props) {
+    //inheritance of the parent component by including the super() statement
+    //then has access to all the functions of the parent (React.Component).
     super(props);
-
+    //bind only works once for the same function.
+    //f.bind(this) creates a new function with the same body and scope as f.
     this.onChangeTodoDescription = this.onChangeTodoDescription.bind(this);
     this.onChangeTodoResponsible = this.onChangeTodoResponsible.bind(this);
     this.onChangeTodoPriority = this.onChangeTodoPriority.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
-
+    //component properties should be kept in state object.
+    //When the state object changes, the component re-renders.
     this.state = {
       todo_description: '',
       todo_responsible: '',
@@ -16,6 +21,8 @@ export default class CreateTodo extends Component {
       todo_completed: false
     }
   }
+
+  //we can control changes by adding event handlers in the onChange attribute
     onChangeTodoDescription(e) {
       this.setState({
         todo_description: e.target.value
@@ -37,10 +44,10 @@ export default class CreateTodo extends Component {
       //call e.preventDefault to ensure that the default HTML form submit behaviour is prevented.
       e.preventDefault();
 
-      console.log('Form Submitted:');
-      console.log(`Todo Description: ${this.state.todo_description}`);
-      console.log(`Todo Responsible: ${this.state.todo_responsible}`);
-      console.log(`Todo Priority: ${this.state.todo_priority}`);
+      // console.log('Form Submitted:');
+      // console.log(`Todo Description: ${this.state.todo_description}`);
+      // console.log(`Todo Responsible: ${this.state.todo_responsible}`);
+      // console.log(`Todo Priority: ${this.state.todo_priority}`);
 
       const newTodo = {
         todo_description : this.state.todo_description,
@@ -51,7 +58,7 @@ export default class CreateTodo extends Component {
       //using the axios.post method to send an HTTP POST request to the back-end endpoint.
       //The endpoint is expecting to get the new todo object in JSON format in the request body.
       //Therefore we need to pass in the newTodo object as a second argument.
-      
+
       axios.post('http://localhost:4000/todos/add', newTodo).then(res => console.log(res.data));
       this.setState({
         todo_description: '',

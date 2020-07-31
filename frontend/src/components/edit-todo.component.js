@@ -23,6 +23,7 @@ export default class EditTodo extends Component {
     componentDidMount() {
         axios.get('http://localhost:4000/todos/'+this.props.match.params.id)
             .then(response => {
+              //To change a value in the state object, use the this.setState() method.
                 this.setState({
                     todo_description: response.data.todo_description,
                     todo_responsible: response.data.todo_responsible,
